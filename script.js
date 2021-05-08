@@ -1,17 +1,20 @@
-// fetchGas();
-async function fetchGas() {
-  const url = 'https://script.google.com/macros/s/AKfycbz0mbrv14UenXqNxrX5NyPABlt_wkd552opiPjf5YgbXBbZSFl0sKV79h3T8izhZQJ6Gw/exec?msg=ddd';
+fetchGas();
+async function fetchGas(url) {
+  // const url = 'https://script.google.com/macros/s/AKfycbwstcwS_BWdZsse_52u_PQI3spN6cGf7DHxCV5qtfLBqvh7_79gPcsi8-86Zy77lEoIww/exec?t=ファイフ&g=11班';
+  
   let obj;
   
-  obj = await fetch(url).then(function(response) {
+  obj = await fetch(url, {method:"GET", mode:"cors"}).then(function(response) {
     return response.text();
   }).then(function(text) {
     obj = JSON.parse(text);
     // alert(obj.msg);
     return obj;
   });
+  console.dir(JSON.stringify(obj));
+  alert(obj);
   
-  alert(obj.msg);
+  // return obj;
 }
 // (function () {
 //   alert("window.innerHeight: " + window.innerHeight + "\nwindow.innerWidth: " + window.innerWidth);
@@ -140,7 +143,7 @@ var app = new Vue({
       if(check) {
         const team = document.getElementById("team").value;
         const group = document.getElementById("group").value;
-
+        
         // google.script.run
         //   .withSuccessHandler(this.replaceNameList) // 上手く値が返ってきた時
         //   .withFailureHandler(function(error) {
@@ -614,7 +617,9 @@ nextBtnFirst.addEventListener("click", function(event){
     app.requesting = true;
     const team = app.team;
     const group = app.group;
-
+    
+    const url = 'https://script.google.com/macros/s/AKfycbwstcwS_BWdZsse_52u_PQI3spN6cGf7DHxCV5qtfLBqvh7_79gPcsi8-86Zy77lEoIww/exec?t=' + team + '&g=' + group;
+    fetchGas(url);
     // google.script.run
     //   .withSuccessHandler(function(list) {
     //     app.requesting = false;

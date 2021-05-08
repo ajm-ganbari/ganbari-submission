@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <!-- Somehow I got an error, so I comment the title, just uncomment to show -->
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <!-- Sweet Alertのcdn -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!-- <?!= HtmlService.createHtmlOutputFromFile('style').getContent(); ?> -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app" class="container">
+    <div class="header">頑張り項目 <span onclick="showPassInput()">提</span>出フォーム</div>
+    <div v-if="success" class="errorGrandParent unsubmittable">
+      <div style="padding: 1em;"> <i class="fas fa-exclamation-triangle"></i> 提出は金曜日しかできません </div>
+    </div>
+    <div class="progress-bar-outer">
+      <div class="progress-bar">
+        <div class="step">
+          <p>所属</p>
+          <div class="bullet"> <span>1</span> </div>
+          <div class="check fas fa-check"></div>
+        </div>
+        <div class="step">
+          <p>氏名</p>
+          <div class="bullet"> <span>2</span> </div>
+          <div class="check fas fa-check"></div>
+        </div>
+        <div class="step">
+          <p>〇×表</p>
+          <div class="bullet"> <span>3</span> </div>
+          <div class="check fas fa-check"></div>
+        </div>
+        <div class="step">
+          <p>コメント</p>
+          <div class="bullet"> <span>4</span> </div>
+          <div class="check fas fa-check"></div>
+        </div>
+      </div>
+    </div> <button id="clearLocalStorage" v-if="showCtrl" onclick="clearLocalStorage()" style="float: right; cursor: pointer;">clear<br>localStorage</button>
+    <div class="form-outer">
+      <div id="form">
+        <div class="page slide-page">
+          <div class="title">所属:</div>
+          <div class="field">
+            <div class="parentOfInput">
+              <div class="label">パート</div>
+              <div class="instr">※ピッコロ、チューバ、フルートの方は「ファイフ」を選んでください</div> <select class="input" name="team" id="team" v-model="team" required>
+                  <option value="" hidden>パートを選ぶ</option>
+                  <option v-for="team_ in teams" v-bind:value="team_">{{team_}}</option>
+                </select> </div>
+          </div>
+          <div class="field">
+            <div class="label">班</div>
+            <div class="parentOfInput">
+              <div class="instr">※パートを選ぶと班を選べるようになります</div> <select class="input" name="group" id="group" v-model="group" required>
+                  <option v-for="group in groups[team]" v-bind:value="group.value" v-bind:disabled="group.disabled">{{group.name}}</option>
+                </select> </div>
+          </div>
+          <!-- next button -->
+          <div class="field btns">
+            <!-- <button class="slideBtn firstNext nextBtn">次へ</button> --><button id="button" class="slideBtn firstNext nextBtn" v-bind:class="{request: !requesting, requesting: requesting}">次へ</button> </div>
+        </div>
+        <div class="page">
+          <div class="title">氏名:</div>
+          <div class="field">
+            <div class="label">氏名</div>
+            <div class="parentOfInput"> <select class="input" name="userName" id="userName" v-model="userName" required>
+                  <option hidden selected>氏名を選ぶ</option>
+                  <option v-for="name in nameList" v-bind:value="name" >{{name}}</option>
+                </select> </div>
+          </div>
+          <div class="field btns"> <button class="slideBtn prevBtn prev-1">戻る</button> <button class="slideBtn nextBtn next-1">次へ</button> </div>
+        </div>
+        <div class="page">
+          <div class="title">〇×表</div>
+          <div class="field">
+            <div v-if="showCtrl"> <input type="checkbox" v-model="checkInvalid" checked="checked" style="width:1.5rem; height:1.5rem;">〇×表の空欄チェックを無効にする(テスト用) </div>
+            <div class="instr"> <span class="tableBtn-ex">ー</span> をタップすると <span class="tableBtn-ex">◎</span>➔ <span class="tableBtn-ex">〇</span>➔ <span class="tableBtn-ex">×</span>➔ <span class="tableBtn-ex">◎</span> の順で切り替わります。 </div>
+            <div class="tableDiv">
+              <table>
+                <!-- ヘッド開始 -->
+                <thead>
+                  <tr align="center">
+                    <th width="10%">削除</th>
+                    <th>No.</th>
+                    <th width="30">項目</th>
+                    <th v-for="date in dates">
+                      <div class="dates">{{date.date}}</div>
+                      <div class="dates">{{date.day}}</div>
+                    </th>
+                    <!-- <th v-for="dates">{{}}</th> -->
+                  </tr>
+                </thead>
+                <!-- ヘッド終わり -->
+                <!-- ボディー開始 -->
+                <tbody align="center">
+                  <tr v-for="(item, i) in items">
+                    <td><span class="delBtn" v-on:click="delRow(i)" v-show="item.delBtn"><i class="fas fa-times-circle"></i></span></td>
+                    <td>{{i + 1}}</td>
+                    <td nowrap>
+                      <div v-if="!item.textArea"> <span>{{item.label}}</span>
+                        <div v-if="item.editBtn" v-on:click="makeEditable(i)" style="background: red; border-radius: 1em; cursor: pointer; width: 2em; float: right; color: white;"><i class="fas fa-pencil-alt"></i></div>
+                      </div>
+                      <div> <textarea class="freeLabel" v-if="item.textArea" v-model="item.label" placeholder="自由項目" name="freeLabel" rows="3"></textarea> </div>
+                    </td>
+                    <td v-for="(value, j) in item.values"><button type="button" class="tableBtn" v-on:click="nextValue(i, j); changeBtnColor(j, $event);">{{valueLabels[value]}}</button></td>
+                  </tr>
+                </tbody>
+                <!-- ボディー終わり -->
+                <!-- フット開始 -->
+                <tfoot align="center">
+                  <tr style="font-size: 1.3em; height: 3em;">
+                    <td colspan="10">
+                      <div v-on:click="addFreeLabel()">
+                        <div class="addRowBtn">自由項目を追加</div>
+                      </div>
+                    </td>
+                    <!-- <td v-for="sum in sumByDate">{{sum}}点</td> -->
+                  </tr>
+                </tfoot>
+                <!-- フット終わり -->
+              </table>
+            </div>
+          </div>
+          <div class="field"> <button class="slideBtn prev-2 prevBtn">戻る</button> <button class="slideBtn next-2 nextBtn">次へ</button> </div>
+        </div>
+        <div class="page">
+          <div class="title">コメント:</div>
+          <div class="field">
+            <div class="instr">子供から</div>
+            <div><textarea id="commentChld" placeholder="コメントを記入してください" name="commentChld" rows="5" cols="40"></textarea></div>
+            <div class="instr">親から</div>
+            <div><textarea id="commentPrnt" placeholder="コメントを記入してください" name="commentPrnt" rows="5" cols="40"></textarea></div>
+          </div>
+          <div class="field btns"> <button class="slideBtn prev-3 prevBtn">戻る</button>
+            <!-- <button class="slideBtn submit">提出</button> --><button id="button" class="submitBtn" v-bind:class="{submit: !success, submitting: submitting, successed: success}" v-bind:disabled="unsubmittable">{{submitBtnTxt}}<i class="far fa-paper-plane"></i></button> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Somehow I got an error, so I comment the script tag, just uncomment to use -->
+  <!-- <script src="script.js"></script> -->
+  <!-- Vue.jsのcdn -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  <!-- <?!= HtmlService.createHtmlOutputFromFile('script').getContent(); ?> -->
+  <script src="script.js"></script>
+</body>
+</html>

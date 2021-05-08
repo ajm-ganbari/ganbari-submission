@@ -1,0 +1,575 @@
+*{
+  margin: 0;
+  padding: 0;
+  outline: none;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+html{
+  /* solid: border 30px; */
+  /* font-size: 2em; */
+  /* width: 100%; */
+  /* height: 100%; */
+}
+body{
+  /* border: solid 10px black; */
+  width: 100%;
+  /* height: 100%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* overflow: hidden; */
+  /* background: -webkit-linear-gradient(bottom, #0250c5, #d43f8d); */
+  background-image: url("https://drive.google.com/thumbnail?id=1BjDVi1418BUZ8gnZETaxRNl8_ah3qC3f");
+  background-size: 600px 600px;
+  animation: bgroop 8s linear infinite;
+  position: relative;
+}
+
+@keyframes bgroop {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 600px -600px;
+    }
+}
+
+/* セレクトデザインのリセット */
+select{
+  background-color: transparent;
+  /* border: none;
+  outline: none; */
+  /* padding: 0; */
+  /* appearance: none; */
+}
+/* select:after {
+  content: ">",
+  
+} */
+
+.container{
+  margin: 2rem;
+  position: relative;
+  width: 850px;
+  min-height : 300px;
+  background: #fff;
+  /* text-align: center; */
+  border-radius: 2em;
+  padding: 50px 35px 100px 35px;
+}
+body::after {
+  content: '';
+  position: absolute;
+  bottom: 0%;
+  width: 100%;
+  height: 300px;
+  background: url('https://drive.google.com/thumbnail?id=1lSurVHHeJ0cKluP9ZPtkRImKrDhdzBH0');
+  background-size: auto 100%;
+  /* z-index: 2; */
+}
+
+/* スマホ用 */
+@media screen and (min-width: 0px) and (max-width: 989px) {
+  .swal2-modal {
+    font-size: 3rem;
+  }
+
+  .swal2-title {
+    font-size: 1em;
+  }
+
+  .swal2-content {
+    font-size: 0.8em;
+  }
+
+  .swal2-actions {
+    font-size: 0.8em;
+  }
+}
+
+/* pc用 */
+@media screen and (min-width: 990px) {
+  .container {
+    font-size: 0.8rem;
+    /* background: red; */
+  }
+  table {
+    font-size: 0.8em;
+  }
+}
+
+.container .header{
+  font-size: 35px;
+  font-weight: 600;
+  margin: 0 0 30px 0;
+
+  /* border: solid;
+  width: 100%;
+  height: 2em; */
+}
+.container .unsubmittable {
+  position: absolute;
+  top: 2em;
+  right: 1em;
+  margin: auto;
+}
+.container .form-outer{
+  /* position: absolute; */
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 90%;
+  overflow: hidden;
+}
+.container .form-outer #form{
+  display: flex;
+  width: 400%;
+}
+.form-outer #form .page{
+  z-index: 2;
+  position: relative;
+  width: 25%;
+  transition: margin-left 0.3s ease-in-out;
+}
+.form-outer #form .page .title{
+  text-align: left;
+  font-size: 3em;
+  font-weight: 500;
+}
+.form-outer #form .page:nth-of-type(2):after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  z-index: 0;
+  top: 0px;
+  right: 50px;
+  width: 130px;
+  height: 130px;
+  overflow: visible;
+  background-image: url(https://drive.google.com/uc?export=view&id=1BxFXMY3fHJd_BITYlQq-1pg8iQPlVwiV);
+  background-size: contain;
+  background-position: top right 50px;
+  background-repeat: no-repeat;
+}
+.form-outer #form .page:nth-of-type(3):after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  z-index: 0;
+  top: 0px;
+  right: -30px;
+  width: 140px;
+  height: 100px;
+  overflow: visible;
+  background-image: url(https://drive.google.com/uc?export=view&id=1PPo-i_HExQiupcjl3sHzEIoT3l1uxn0J);
+  background-size: contain;
+  background-position: top left;
+  background-repeat: no-repeat;
+}
+.form-outer #form .page:nth-of-type(4):after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  z-index: 0;
+  top: 0px;
+  right: 0px;
+  width: 120px;
+  height: 110px;
+  overflow: visible;
+  background-image: url(https://drive.google.com/uc?export=view&id=1BNcs9tpc2JrFqxqYrZ_VuQFMsG86Gfyh);
+  background-size: contain;
+  background-position: top left;
+  background-repeat: no-repeat;
+}
+
+.form-outer #form .page .field{
+  width: 100%;
+  /* height: 3em; */
+  margin: 20px 0;
+  font-size: 1.3em
+  /* display: flex; */
+  /* position: relative; */
+}
+#form .page .field .label{
+  /* position: absolute; */
+  top: -50px;
+  font-weight: 500;
+  font-size: 1.2em;
+}
+#form .page .field .instr {
+  margin: 1em 0 0 0;
+}
+#form .page .field .input{
+  /* height: 2em; */
+  /* width: 100%; */
+  /* border: 1px solid lightgrey; */
+  /* border-radius: 5px; */
+  /* padding-left: 15px; */
+  font-size: 1em;
+
+  border-radius: 0.25em;
+  border-style: solid;
+  border-width: 0.2rem;
+  border-color: #4DED30;
+  /* font-size: ; */
+  width: 10em;
+  height: 3rem;
+}
+/* #form .page .field select{
+  width: 100%;
+  padding-left: 10px;
+  font-size: 17px;
+  font-weight: 500;
+} */
+#form .page .field .slideBtn{
+  /* width: 10em; */
+  padding: 0.1em 1em;
+  height: 2.5em;
+  border: none;
+  /* background: #d33f8d; */
+  background-image: linear-gradient(90deg, #4feb0e, #00B712);
+  border-radius: 1em;
+  color: #fff;
+  cursor: pointer;
+  font-size: 2em;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: 0.5s ease;
+}
+#form .page .field .submitBtn{
+  /* width: 10em; */
+  position: absolute;
+  right: 1em;
+  padding: 0.1em 1em;
+  height: 2.5em;
+  border: none;
+  /* background: #d33f8d; */
+  /* background-image: linear-gradient(90deg, #4feb0e, #00B712); */
+  border-radius: 1em;
+  color: #fff;
+  /* cursor: pointer; */
+  font-size: 2em;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: 0.5s ease;
+}
+
+#form .page .prevBtn{
+  /* position: absolute; */
+  bottom: 1em;
+  left: 1em;
+}
+#form .page .nextBtn{
+  position: absolute;
+  /* bottom: 1em; */
+  right: 1em;
+}
+#form .page .submit{
+  background-image: linear-gradient(90deg, #4feb0e, #00B712);
+  position: absolute;
+  /* bottom: 1em; */
+  right: 1em;
+}
+
+.request {
+  width: 6em;
+  /*ボタン色*/
+  /* background-image: linear-gradient(90deg, #5AFF15, #00B712); */
+}
+.requesting {
+  width: 6em;
+  /*ボタン色*/
+  /* background-image: linear-gradient(90deg, #5AFF15, #00B712); */
+  animation:15s linear infinite infinitescroll;
+  /* animation:2s linear infinite rotation; */
+  /* background-position: 20px 0; */
+}
+.submitting {
+  width: 6em;
+  /*ボタン色*/
+  background-image: linear-gradient(90deg, #5AFF15, #00B712);
+  animation:20s linear infinite infinitescroll;
+  /* animation:2s linear infinite rotation; */
+  /* background-position: 20px 0; */
+}
+@keyframes infinitescroll {
+  0% {background-position: 10px 0px;}
+	100% {background-position: 3000px 0px;}
+}
+.successed {
+  cursor: default;
+  /* width: 15rem; */
+  /*ボタン色*/
+  /* background: linear-gradient(to right, #403b4a, #bbbbb4); */
+  background: gray;
+}
+
+.container .progress-bar-outer{
+  margin: 3em 0;
+  /* border: solid 3px red; */
+  width: 100%;
+  height: 80px;
+  position: relative;
+  border-bottom: dashed 2px #dacfd0;
+}
+
+/* .container .progress-bar-outer:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: -150px;
+  left: 50px;
+  width: 90%;
+  height: 270px;
+  background-image: 
+    url(https://drive.google.com/uc?export=view&id=1WN6cfj_9iPjHF72oh7XDbB571ZUFjUjL),
+    url(https://drive.google.com/uc?export=view&id=1PPo-i_HExQiupcjl3sHzEIoT3l1uxn0J),
+    url(https://drive.google.com/uc?export=view&id=1BNcs9tpc2JrFqxqYrZ_VuQFMsG86Gfyh);
+  background-size: auto 150px, auto 140px, auto 140px;
+  background-position: bottom left, top right 160px, top 50px right;
+  background-repeat: no-repeat;
+} */
+
+.container .progress-bar{
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 330px;
+  display: flex;
+  /* margin: 40px 0; */
+  user-select: none;
+}
+.container .progress-bar .step{
+  text-align: center;
+  width: 100%;
+  position: relative;
+}
+.container .progress-bar .step p{
+  font-weight: 500;
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 8px;
+}
+.progress-bar .step .bullet{
+  height: 25px;
+  width: 25px;
+  border: 2px solid #000;
+  display: inline-block;
+  border-radius: 50%;
+  position: relative;
+  transition: 0.2s;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 25px;
+}
+.progress-bar .step .bullet.active{
+  border-color: #d43f8d;
+  background: #d43f8d;
+}
+.progress-bar .step .bullet span{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.progress-bar .step .bullet.active span{
+  display: none;
+}
+.progress-bar .step .bullet:before,
+.progress-bar .step .bullet:after{
+  position: absolute;
+  content: '';
+  bottom: 11px;
+  right: -51px;
+  height: 3px;
+  width: 44px;
+  background: #262626;
+}
+.progress-bar .step .bullet.active:after{
+  background: #d43f8d;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: animate 0.3s linear forwards;
+}
+@keyframes animate {
+  100%{
+    transform: scaleX(1);
+  }
+}
+.progress-bar .step:last-child .bullet:before,
+.progress-bar .step:last-child .bullet:after{
+  display: none;
+}
+.progress-bar .step p.active{
+  color: #d43f8d;
+  transition: 0.2s linear;
+}
+.progress-bar .step .check{
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  font-size: 15px;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.progress-bar .step .check.active{
+  display: block;
+  color: #fff;
+}
+
+/* .input {
+  border-radius: 0.25em;
+  border-style: solid;
+  border-width: 0.2rem;
+  border-color: #4DED30;
+  font-size: ;
+  width: 10em;
+  height: 2rem;
+} */
+
+.tableDiv {
+  width: 85%;
+  height: 100%;
+  /* overflow-y: scroll; */
+  overflow-x: scroll;
+  border: #4DED30 5px solid;
+  padding: 0.5em 2em;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  /* font-size: 1rem; */
+}
+table th {
+  height: 2em;
+  font-size: 1.5rem;
+  background: #37A866;
+  color: white;
+}
+tr {
+  /* height: 0.5rem; */
+}
+.dates {
+  font-size: 0.8em;
+}
+
+/* 奇数行の背景を設定 */
+.tableDiv table tr:nth-child(odd){
+  background-color: #eee
+}
+
+/* 角丸の設定 開始 */
+.tableDiv table th:first-child{
+  border-radius: 0.5rem 0 0 0;
+}
+
+.tableDiv table th:last-child{
+  border-radius: 0 0.5rem 0 0;
+  border-right: 1px solid #3c6690;
+}
+
+.tableDiv table td:last-child{
+  border-radius: 0 0 0 0;
+  border-right: 1px solid #a8b7c5;
+}
+
+/* table tr:last-child td:first-child {
+  border-radius: 0 0 0 0.5rem;
+} */
+/* 角丸の設定 終了 */
+
+.label {
+  /* word-wrap: break-word;
+  max-width: 10em; */
+}
+
+/* 表の〇×ボタン */
+.tableBtn {
+  /* position: relative; */
+  display: inline-block;
+  padding: 0.2em 0.2em;
+  margin: 0.1em;
+  text-decoration: none;
+  background: #00BCD4;/*背景色*/
+  color: #00BCD4;/*=背景色*/
+  color: black;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2);
+  border-bottom: solid 2px #118e9e;
+  border-radius: 0.4em;
+  font-weight: bold;
+  text-shadow: -1px -1px rgba(255, 255, 255, 0.44), 1px 1px rgba(0, 0, 0, 0.38);
+  font-size: 2rem;
+  text-align: center;
+  width: 1.8em;
+  height: 1.8em;
+  cursor: pointer;
+}
+.tableBtn:active {
+  /*押したとき*/
+  border-bottom: solid 2px #00BCD4;
+  box-shadow: none;
+  text-shadow: -1px -1px rgba(255, 255, 255, 0.3), 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+/* 表の上の説明ボタン用 */
+.tableBtn-ex {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  background: #00BCD4;/*背景色*/
+  color: #00BCD4;/*=背景色*/
+  color: black;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2);
+  border-bottom: solid 2px #118e9e;
+  border-radius: 0.4em;
+  font-weight: bold;
+  text-shadow: -1px -1px rgba(255, 255, 255, 0.44), 1px 1px rgba(0, 0, 0, 0.38);
+  font-size: 1em;
+  width: 1em;
+  height: 1em;
+
+  vertical-align: middle;
+}
+textarea {
+  width: 100%;
+  /* font-size: 1em; */
+}
+
+.delBtn {
+  font-size: 2em;
+  color:red;
+  cursor: pointer;
+}
+
+.addRowBtn {
+  background-color: #00ab47;
+  border-radius: 1em;
+  color: white;
+
+  margin: 0.1em 0;
+  padding: 0.8em 1em;
+  /* width: 80%; */
+  text-align: center;
+  cursor: pointer;
+}
+
+.error {
+  /* border-color: hsl(240, 1%, 83%); */
+  border-color: red;
+  color: hsl(240, 4%, 20%);
+}
+.errorParent::after {
+  content: "※記入してください";
+  font-size: 1em;
+  display: block;
+  /* width: 100%; */
+  color: red;
+}
+.errorGrandParent {
+  border-style: solid;
+  border-color: orange;
+  background-color: moccasin;
+  border-radius: 0.2em;
+}

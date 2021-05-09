@@ -1,3 +1,4 @@
+console.log('ver 4.1');
 // async function fetchGas(url, option) {
 //   // const url = 'https://script.google.com/macros/s/AKfycbwstcwS_BWdZsse_52u_PQI3spN6cGf7DHxCV5qtfLBqvh7_79gPcsi8-86Zy77lEoIww/exec?t=ファイフ&g=11班';
 //   let obj;

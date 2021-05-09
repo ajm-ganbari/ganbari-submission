@@ -5,19 +5,6 @@ async function fetchGas(url, option) {
     return response;
   });
   return obj;
-  // obj = await fetch(url, option).then(function(response) {
-  //   console.log(response);
-  //   return response.text();
-  // }).then(function(text) {
-  //   // console.log(text);
-  //   obj = JSON.parse(text || null);
-  //   // alert(obj.msg);
-  //   return obj;
-  // });
-  // console.dir(JSON.stringify(obj));
-  // alert(obj);
-  
-  return obj;
 }
 
 var app = new Vue({

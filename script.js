@@ -1,24 +1,24 @@
-fetchGas();
-async function fetchGas(url) {
+async function fetchGas(url, option) {
   // const url = 'https://script.google.com/macros/s/AKfycbwstcwS_BWdZsse_52u_PQI3spN6cGf7DHxCV5qtfLBqvh7_79gPcsi8-86Zy77lEoIww/exec?t=ファイフ&g=11班';
-  
   let obj;
-  
-  obj = await fetch(url, {method:"GET", mode:"cors"}).then(function(response) {
-    return response.text();
-  }).then(function(text) {
-    obj = JSON.parse(text);
-    // alert(obj.msg);
-    return obj;
+  obj = await fetch(url, option).then(function(response) {
+    return response;
   });
-  console.dir(JSON.stringify(obj));
-  alert(obj);
+  return obj;
+  // obj = await fetch(url, option).then(function(response) {
+  //   console.log(response);
+  //   return response.text();
+  // }).then(function(text) {
+  //   // console.log(text);
+  //   obj = JSON.parse(text || null);
+  //   // alert(obj.msg);
+  //   return obj;
+  // });
+  // console.dir(JSON.stringify(obj));
+  // alert(obj);
   
-  // return obj;
+  return obj;
 }
-// (function () {
-//   alert("window.innerHeight: " + window.innerHeight + "\nwindow.innerWidth: " + window.innerWidth);
-// })();
 
 var app = new Vue({
   el: "#app",
@@ -137,21 +137,6 @@ var app = new Vue({
       console.log(e.srcElement);
       e.srcElement.style.background = "#91C877";
     },
-    requestNameList: function() {
-      const checkIds = ["team", "group"];
-      check = checkInputs(checkIds, []);
-      if(check) {
-        const team = document.getElementById("team").value;
-        const group = document.getElementById("group").value;
-        
-        // google.script.run
-        //   .withSuccessHandler(this.replaceNameList) // 上手く値が返ってきた時
-        //   .withFailureHandler(function(error) {
-        //     alert(error);
-        //   }) // 値が返ってこなかった時
-        //   .getGroupNameList(team, group);
-      }
-    },
     replaceNameList: function(list) {
       // 全要素を削除
       this.nameList.splice(0);
@@ -241,44 +226,44 @@ var app = new Vue({
     //     });
     //   }
     // },
-    send: function() {
-      // console.log("in send")
-      // 提出ボタンを「提出中」に変更
-      this.submitBtnTxt = "提出中";
-      this.submitting = true;
+    // send: function() {
+    //   // console.log("in send")
+    //   // 提出ボタンを「提出中」に変更
+    //   this.submitBtnTxt = "提出中";
+    //   this.submitting = true;
 
-      var team, group, userName;
-      team = this.team;
-      group = this.group;
-      userName = this.userName;
+    //   var team, group, userName;
+    //   team = this.team;
+    //   group = this.group;
+    //   userName = this.userName;
 
-      // 子供と親からのコメント
-      comments = [
-        document.getElementById("commentChld").value,
-        document.getElementById("commentPrnt").value,
-      ];
+    //   // 子供と親からのコメント
+    //   comments = [
+    //     document.getElementById("commentChld").value,
+    //     document.getElementById("commentPrnt").value,
+    //   ];
       
-      if(this.calSumOfByDate()) {
-        // google.script.run
-        // .withSuccessHandler(function(comment) { // 上手く値が返ってきた時
-        //   // 自由項目を、"$"で区切った文字列で取得
-        //   var labelsStr = this.getLabels();
+    //   if(this.calSumOfByDate()) {
+    //     // google.script.run
+    //     // .withSuccessHandler(function(comment) { // 上手く値が返ってきた時
+    //     //   // 自由項目を、"$"で区切った文字列で取得
+    //     //   var labelsStr = this.getLabels();
 
-        //   // Local Storageに保存
-        //   setLocalStorage(userName, labelsStr);
+    //     //   // Local Storageに保存
+    //     //   setLocalStorage(userName, labelsStr);
 
-        //   // コメントサイトに移動
-        //   submitSuccessed(comment);
-        // })
-        // .withFailureHandler(submitError) // 値が返ってこなかった時
-        // .writeSpreadSheet(this.firstDate, team, group, userName, this.items, comments);
-      } else {
-        console.log("calSumOfByDate returned false");
-      }
-      // console.log(this.firstDate);
-      // console.log(userName);
-      console.log(this.firstDate);
-    },
+    //     //   // コメントサイトに移動
+    //     //   submitSuccessed(comment);
+    //     // })
+    //     // .withFailureHandler(submitError) // 値が返ってこなかった時
+    //     // .writeSpreadSheet(this.firstDate, team, group, userName, this.items, comments);
+    //   } else {
+    //     console.log("calSumOfByDate returned false");
+    //   }
+    //   // console.log(this.firstDate);
+    //   // console.log(userName);
+    //   console.log(this.firstDate);
+    // },
     calSumOfByDate: function() {
       // console.log("in calSumOfByDate");
       // console.log(this.items.length);
@@ -383,7 +368,7 @@ calcFirstDate();
 
 
 function setLocalStorage(userName, labels) {
-  console.log(userName, labels);
+  // console.log(userName, labels);
   localStorage[userName] = labels;
   // localStorage.userName = userName;
   // localStorage.fLabel = freeLabels;
@@ -401,33 +386,35 @@ function clearLocalStorage() {
 }
 
 function calcFirstDate() {
-  var today = new Date();
+  let today = new Date();
   
-  // 土曜日にアクセスすると、一つ前の週として処理
-  if(today.getDay() == 6) {
-    today.setDate(today.getDate() - 1);
-  }
-
-  var date = today.getDate() - (today.getDay() + 1) % 7;
-  var firstDate = new Date(today.getFullYear(), today.getMonth(), date);
-  console.log("firstDate is %d/%d", firstDate.getMonth()+1, firstDate.getDate());
-  app.fillDates(firstDate.getTime());
-
   let isSat;
   // 期限を土曜朝8時に延長
   if(today.getDay() == 5) {
   } else if(today.getDay() == 6 && today.getHours() <= 12) {
     isSat = true;
     console.log("isSat", isSat);
-    // unsubmittable(isSat);
+    unsubmittable(isSat);
   } else {
-    isSat = false;
+    isSat = true;
+    // isSat = false;
     console.log("isSat", isSat);
     unsubmittable(isSat);
   }
+  
+  // 土曜日にアクセスすると、一つ前の週として処理
+  if(today.getDay() == 6) {
+    today.setDate(today.getDate() - 1);
+  }
+  
+  let date = today.getDate() - (today.getDay() + 1) % 7;
+  let firstDate = new Date(today.getFullYear(), today.getMonth(), date);
+  console.log("firstDate is %d/%d", firstDate.getMonth()+1, firstDate.getDate());
+  app.fillDates(firstDate.getTime());
 }
 
 function unsubmittable(isSat) {
+  console.log('unsubmittable', isSat);
   Swal.fire({
     icon: 'error',
     title: '今日は提出できません',
@@ -487,7 +474,7 @@ function checkInputs(checkIds, checkCls) {
 }
 // 引数をidに持つinputが入力されたかどうか
 function checkEntered(el) {
-  console.log(el);
+  // console.log(el);
   var value = el.value;
   // console.log(value);
   var result;
@@ -525,7 +512,7 @@ function checkAllInputs() {
   // const checkCls = [];
 
   for(id in checkIds) {
-    console.log(id);
+    // console.log(id);
     el = document.getElementById(id);
     if(el.value == "") {
       text += "「" + checkIds[id] + "」";
@@ -619,7 +606,26 @@ nextBtnFirst.addEventListener("click", function(event){
     const group = app.group;
     
     const url = 'https://script.google.com/macros/s/AKfycbwstcwS_BWdZsse_52u_PQI3spN6cGf7DHxCV5qtfLBqvh7_79gPcsi8-86Zy77lEoIww/exec?t=' + team + '&g=' + group;
-    fetchGas(url);
+    const option = {method:"GET", mode:"cors"};
+    
+    fetchGas(url, option).then(response => {
+      console.log(response);
+      return response.text();
+    }).then(function(text) {
+      // console.log(text);
+      obj = JSON.parse(text || null);
+      // alert(obj.msg);
+      return obj;
+    }).then(obj => {
+      app.requesting = false;
+      app.replaceNameList(obj.list);
+      slideToSec();
+    });
+    // fetchGas(url, option).then(obj => {
+    //   app.requesting = false;
+    //   app.replaceNameList(obj.list);
+    //   slideToSec();
+    // });
     // google.script.run
     //   .withSuccessHandler(function(list) {
     //     app.requesting = false;
@@ -705,8 +711,8 @@ submitBtn.addEventListener("click", function(){
   //   location.reload();
   // },800);
 });
-
-function submit() {
+let respp;
+async function submit() {
   app.submitBtnTxt = "提出中";
   app.submitting = true;
   // 子供と親からのコメント
@@ -716,7 +722,80 @@ function submit() {
   ];
   // console.log("check point");
   // console.log(app.firstDate, app.team, app.group, app.userName, app.items, comments);
+  const url = 'https://script.google.com/macros/s/AKfycbwstcwS_BWdZsse_52u_PQI3spN6cGf7DHxCV5qtfLBqvh7_79gPcsi8-86Zy77lEoIww/exec';
+  // const url = 'https://script.google.com/macros/s/AKfycbwstcwS_BWdZsse_52u_PQI3spN6cGf7DHxCV5qtfLBqvh7_79gPcsi8-86Zy77lEoIww/exec';
+  let body = {
+    firstDate: app.firstDate,
+    team: app.team,
+    group: app.group,
+    userName: app.userName,
+    items: JSON.stringify(app.items),
+    comments: JSON.stringify(comments),
+  };
+  // console.log(body);
+  
+  let bodyStr = Object.entries(body).reduce( (l, [k,v])=> { l.append(k, v); return l; }, new FormData());
+  const option = {
+    method: "POST",
+    mode: 'no-cors',
+    body: body,
+    followAllRedirects: true,
+  }
+  
+  const params = new URLSearchParams();
+  params.append('firstDate', app.firstDate);
+  params.append('team', app.team);
+  params.append('group', app.group);
+  params.append('userName', app.userName);
+  params.append('items', JSON.stringify(app.items));
+  params.append('comments', JSON.stringify(comments));
+  const res = await axios.post(url, params).then((res)=>{
+    console.log(res);
+    respp = res;
+    complete();
+    // 自由項目を、"$"で区切った文字列で取得
+    var labels = app.getLabels();
+    // Local Storageに保存
+    setLocalStorage(app.userName, labels);
 
+    // コメントサイトに移動
+    submitSuccessed(res.data.total);
+
+  }).catch(function (error) {
+    // handle error
+    console.log(error);
+  });
+  console.log(res);
+  // fetchGas(url, option).then(response => {
+  //   console.log(response);
+  //   return response.json();
+  // }).then(function(text) {
+  //   // console.log(text);
+  //   obj = JSON.parse(text || null);
+  //   // alert(obj.msg);
+  //   return obj;
+  // }).then((res) => {
+  //   console.log(JSON.stringify(res));
+  //   // complete();
+  //   // 自由項目を、"$"で区切った文字列で取得
+  //   var labels = app.getLabels();
+  //   // Local Storageに保存
+  //   setLocalStorage(app.userName, labels);
+
+  //   // コメントサイトに移動
+  //   // submitSuccessed(comment);
+  // });
+  // fetchGas(url, option).then((res) => {
+  //   console.log(JSON.stringify(res));
+  //   // complete();
+  //   // 自由項目を、"$"で区切った文字列で取得
+  //   var labels = app.getLabels();
+  //   // Local Storageに保存
+  //   setLocalStorage(app.userName, labels);
+
+  //   // コメントサイトに移動
+  //   // submitSuccessed(comment);
+  // });
   // google.script.run
   //   .withSuccessHandler(function(comment) { // 上手く値が返ってきた時
   //     complete();

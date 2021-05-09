@@ -596,14 +596,8 @@ nextBtnFirst.addEventListener("click", function(event){
     const option = {method:"GET", mode:"cors"};
     
     axios.get(url).then(res => {
-      console.log(res);
-      return res.text();
-    }).then(text => {
-      obj = JSON.parse(text);
-      return obj;
-    }).then(obj => {
       app.requesting = false;
-      app.replaceNameList(obj.list);
+      app.replaceNameList(res.data.list);
       slideToSec();
     }).catch(error => {
       console.log(error);

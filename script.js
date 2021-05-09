@@ -595,19 +595,32 @@ nextBtnFirst.addEventListener("click", function(event){
     const url = 'https://script.google.com/macros/s/AKfycbwstcwS_BWdZsse_52u_PQI3spN6cGf7DHxCV5qtfLBqvh7_79gPcsi8-86Zy77lEoIww/exec?t=' + team + '&g=' + group;
     const option = {method:"GET", mode:"cors"};
     
-    fetchGas(url, option).then(response => {
-      console.log(response);
-      return response.text();
-    }).then(function(text) {
-      // console.log(text);
-      obj = JSON.parse(text || null);
-      // alert(obj.msg);
+    axios.get(url).then(res => {
+      console.log(res);
+      return res.text();
+    }).then(text => {
+      obj = JSON.parse(text);
       return obj;
     }).then(obj => {
       app.requesting = false;
       app.replaceNameList(obj.list);
       slideToSec();
+    }).catch(error => {
+      console.log(error);
     });
+    // fetchGas(url, option).then(response => {
+    //   console.log(response);
+    //   return response.text();
+    // }).then(function(text) {
+    //   // console.log(text);
+    //   obj = JSON.parse(text || null);
+    //   // alert(obj.msg);
+    //   return obj;
+    // }).then(obj => {
+    //   app.requesting = false;
+    //   app.replaceNameList(obj.list);
+    //   slideToSec();
+    // });
     // fetchGas(url, option).then(obj => {
     //   app.requesting = false;
     //   app.replaceNameList(obj.list);

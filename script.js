@@ -1,11 +1,11 @@
-async function fetchGas(url, option) {
-  // const url = 'https://script.google.com/macros/s/AKfycbwstcwS_BWdZsse_52u_PQI3spN6cGf7DHxCV5qtfLBqvh7_79gPcsi8-86Zy77lEoIww/exec?t=ファイフ&g=11班';
-  let obj;
-  obj = await fetch(url, option).then(function(response) {
-    return response;
-  });
-  return obj;
-}
+// async function fetchGas(url, option) {
+//   // const url = 'https://script.google.com/macros/s/AKfycbwstcwS_BWdZsse_52u_PQI3spN6cGf7DHxCV5qtfLBqvh7_79gPcsi8-86Zy77lEoIww/exec?t=ファイフ&g=11班';
+//   let obj;
+//   obj = await fetch(url, option).then(function(response) {
+//     return response;
+//   });
+//   return obj;
+// }
 
 var app = new Vue({
   el: "#app",

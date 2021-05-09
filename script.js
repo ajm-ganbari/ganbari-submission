@@ -396,7 +396,7 @@ function calcFirstDate() {
   
   let date = today.getDate() - (today.getDay() + 1) % 7;
   let firstDate = new Date(today.getFullYear(), today.getMonth(), date);
-  console.log("e is %d/%d", firstDate.getMonth()+1, firstDate.getDate());
+  console.log("firstDate is %d/%d", firstDate.getMonth()+1, firstDate.getDate());
   app.fillDates(firstDate.getTime());
 }
 
